@@ -5,8 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        chakra: ["Chakra Petch", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        chakra: ["Chakra Petch", "sans-serif"],
         silkscreen: ["Silkscreen", "sans-serif"],
       },
     },
