@@ -1,9 +1,10 @@
 import Nav from "~/components/layout/Nav";
 import MainGrid from "./_components/MainGrid";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+export default async function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start">
+    <main className="flex min-h-screen min-w-[320px] flex-col items-center justify-start">
       <Nav />
       <MainGrid />
     </main>

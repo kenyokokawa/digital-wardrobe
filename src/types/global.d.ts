@@ -1,4 +1,7 @@
 export type ClothingItem = {
-  url: string;
-  id: string;
+  imgUrl: string;
+  id: number;
+  name: string | null;
+  brand: string | null;
+  category: string | null;
 };

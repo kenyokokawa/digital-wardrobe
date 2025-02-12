@@ -18,19 +18,23 @@ import {
  */
 export const createTable = pgTableCreator((name) => `digital-wardrobe_${name}`);
 
-export const posts = createTable(
-  "post",
+export const clothingItems = createTable(
+  "clothing_item",
   {
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+    userId: integer("user_id").notNull(),
     name: varchar("name", { length: 256 }),
+    brand: varchar("maker", { length: 256 }),
+    category: varchar("category", { length: 256 }),
+    imgUrl: varchar("img_url", { length: 1024 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-      () => new Date()
+      () => new Date(),
     ),
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
-  })
+  }),
 );
