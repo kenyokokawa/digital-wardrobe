@@ -52,6 +52,7 @@ const config = {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-explicit-any": "off",
   },
 };
 module.exports = config;

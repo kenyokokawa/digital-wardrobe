@@ -12,10 +12,21 @@ const CategoryRow = ({
   items: ClothingItem[];
 }) => {
   const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-28 sm:h-40";
+
+  let countText = "empty";
+  if (items.length) {
+    if (items.length === 1) {
+      countText = "1 item";
+    } else {
+      countText = items.length + " items";
+    }
+  }
   return (
     <div className="relative">
       <div className="scrollbar-hide no-scrollbar w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth">
-        <div className={`flex min-w-max gap-2 bg-zinc-50 ${rowHeightClass}`}>
+        <div
+          className={`flex min-w-max gap-2 bg-zinc-50 sm:gap-4 ${rowHeightClass}`}
+        >
           <div
             className="w-[calc(50vw-80px)] sm:w-[calc(50vw-160px)]"
             aria-hidden="true"
@@ -32,7 +43,7 @@ const CategoryRow = ({
       <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full">
         <div className="mx-auto flex h-fit w-full max-w-6xl justify-between px-4">
           <Tag>{category.toUpperCase()}</Tag>
-          <Badge>{items.length ? items.length + " items" : "empty"}</Badge>
+          <Badge>{countText}</Badge>
         </div>
       </div>
     </div>

@@ -1,15 +1,22 @@
 import { getUserClothingItems } from "~/server/queries";
 import CategoryRow from "./CategoryRow";
-
+import { auth } from "@clerk/nextjs/server";
 const MainGrid = async () => {
-  const items = await getUserClothingItems();
+  const user = await auth();
+
+  let items: any[] = [];
+  if (user.userId) {
+    items = await getUserClothingItems();
+  }
 
   return (
-    <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:gap-8">
-      <CategoryRow
-        category="No Category"
-        items={items.filter((item) => !item.category)}
-      />
+    <div className="flex flex-col gap-3 sm:gap-8">
+      {items.filter((item) => !item.category).length > 0 && (
+        <CategoryRow
+          category="Uncategorized"
+          items={items.filter((item) => !item.category)}
+        />
+      )}
       <CategoryRow
         category="Tops"
         items={items.filter((item) => item.category === "top")}
@@ -20,7 +27,7 @@ const MainGrid = async () => {
       />
       <CategoryRow
         category="Shoes"
-        items={items.filter((item) => item.category === "shoe")}
+        items={items.filter((item) => item.category === "shoes")}
       />
     </div>
   );

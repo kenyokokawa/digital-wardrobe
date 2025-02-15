@@ -1,3 +1,9 @@
+export enum ClothingCategory {
+  TOPS = "top",
+  BOTTOMS = "bottom",
+  OUTERWEAR = "shoes",
+}
+
 export type ClothingItem = {
   imgUrl: string;
   id: number;
