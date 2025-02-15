@@ -1,7 +1,10 @@
 import "server-only";
 
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
+import { type ClothingItem } from "~/types/global";
+import { clothingItems } from "./db/schema";
 
 export const getUserClothingItems = async () => {
   const user = await auth();
@@ -38,4 +41,29 @@ export const getUserClothingItemById = async (id: number) => {
   }
 
   return item;
+};
+
+export const updateUserClothingItemById = async (
+  id: number,
+  data: Partial<ClothingItem>,
+) => {
+  const user = await auth();
+
+  if (!user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const item = await db.query.clothingItems.findFirst({
+    where: (clothingItems, { eq }) => eq(clothingItems.id, id),
+  });
+
+  if (!item) {
+    throw new Error("Not found");
+  }
+
+  if (item.userId !== user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  await db.update(clothingItems).set(data).where(eq(clothingItems.id, id));
 };

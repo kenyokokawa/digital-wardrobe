@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ClothingCategory, type ClothingItem } from "~/types/global";
 import { useRouter } from "next/navigation";
-import { updateUserClothingItemById } from "~/server/clientActions";
+import { updateUserClothingItemById } from "~/server/serverActions";
 
 const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
   const router = useRouter();
