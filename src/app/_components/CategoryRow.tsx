@@ -2,6 +2,7 @@ import React from "react";
 import Tag from "~/components/shared/Tag";
 import type { ClothingItem } from "~/types/global";
 import CategoryRowItem from "./CategoryRowItem";
+import Badge from "~/components/shared/Badge";
 
 const CategoryRow = ({
   category,
@@ -10,10 +11,11 @@ const CategoryRow = ({
   category: string;
   items: ClothingItem[];
 }) => {
+  const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-28 sm:h-40";
   return (
-    <div className="relative ">
+    <div className="relative">
       <div className="scrollbar-hide no-scrollbar w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth">
-        <div className="flex min-w-max gap-2 sm:gap-4 h-40 sm:h-80">
+        <div className={`flex min-w-max gap-2 bg-zinc-50 ${rowHeightClass}`}>
           <div
             className="w-[calc(50vw-80px)] sm:w-[calc(50vw-160px)]"
             aria-hidden="true"
@@ -28,10 +30,9 @@ const CategoryRow = ({
         </div>
       </div>
       <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full">
-        <div className="mx-auto w-full max-w-6xl px-4">
-          <div className="flex">
-            <Tag>{category.toUpperCase()}</Tag>
-          </div>
+        <div className="mx-auto flex h-fit w-full max-w-6xl justify-between px-4">
+          <Tag>{category.toUpperCase()}</Tag>
+          <Badge>{items.length ? items.length + " items" : "empty"}</Badge>
         </div>
       </div>
     </div>

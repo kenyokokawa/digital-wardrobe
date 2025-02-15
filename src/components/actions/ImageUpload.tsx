@@ -23,13 +23,9 @@ const ImageUpload = () => {
             alert(`Error uploading image: ${error.message}`);
           }}
           content={{
-            button: (
-              <button className="rounded-none bg-green-500 font-chakra text-white">
-                Add items
-              </button>
-            ),
+            button: <label className="font-chakra">Add items</label>,
           }}
-          className="ut-button:bg-green-500 ut-button:rounded-none ut-button:ut-readying:bg-green-800 ut-allowed-content:hidden"
+          className="ut-button:bg-green-500 ut-button:rounded-none ut-button:ut-readying:bg-green-800 ut-button:px-3 ut-button:py-1 ut-allowed-content:hidden"
         />
       </SignedIn>
     </div>

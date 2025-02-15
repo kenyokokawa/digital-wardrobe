@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import LogInOut from "../account/LogInOut";
+import ImageUpload from "../actions/ImageUpload";
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +50,7 @@ const SideNav = () => {
           <div className="flex flex-col gap-4">
             <LogInOut />
           </div>
+          <ImageUpload />
         </div>
       </nav>
     </>
