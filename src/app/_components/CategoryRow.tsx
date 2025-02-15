@@ -11,9 +11,9 @@ const CategoryRow = ({
   items: ClothingItem[];
 }) => {
   return (
-    <div className="relative">
+    <div className="relative ">
       <div className="scrollbar-hide no-scrollbar w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth">
-        <div className="flex min-w-max gap-2 sm:gap-4">
+        <div className="flex min-w-max gap-2 sm:gap-4 h-40 sm:h-80">
           <div
             className="w-[calc(50vw-80px)] sm:w-[calc(50vw-160px)]"
             aria-hidden="true"

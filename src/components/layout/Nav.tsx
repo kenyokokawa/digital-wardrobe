@@ -1,11 +1,15 @@
+import { auth } from "@clerk/nextjs/server";
 import LogOutIn from "../account/LogInOut";
+import ImageUpload from "../actions/ImageUpload";
 import SideNav from "./SideNav";
-
-const Nav = () => {
+const Nav = async () => {
+  const user = await auth();
   return (
     <nav className="flex w-full max-w-6xl p-4 pb-0">
       <div className="justify-space flex w-full flex-row justify-between border-2 border-black p-2">
-        <div className="shrink-1 flex grow basis-full items-center justify-start"></div>
+        <div className="shrink-1 flex grow basis-full items-center justify-start">
+          <ImageUpload />
+        </div>
         <h2 className="shrink-0 font-silkscreen text-xl sm:text-3xl">
           Digital Wardrobe
         </h2>

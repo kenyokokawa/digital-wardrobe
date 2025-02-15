@@ -9,6 +9,10 @@ const MainGrid = async () => {
   return (
     <div className="mt-4 flex flex-col gap-3 sm:mt-8 sm:gap-8">
       <CategoryRow
+        category="Uncategorized"
+        items={items.filter((item) => !item.category)}
+      />
+      <CategoryRow
         category="Tops"
         items={items.filter((item) => item.category === "top")}
       />

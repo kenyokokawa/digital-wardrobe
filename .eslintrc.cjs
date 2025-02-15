@@ -51,6 +51,7 @@ const config = {
     "@typescript-eslint/no-unsafe-call": "off",
     "@next/next/no-img-element": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
   },
 };
 module.exports = config;

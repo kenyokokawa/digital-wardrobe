@@ -22,7 +22,7 @@ export const clothingItems = createTable(
   "clothing_item",
   {
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
-    userId: integer("user_id").notNull(),
+    userId: varchar("user_id", { length: 256 }).notNull(),
     name: varchar("name", { length: 256 }),
     brand: varchar("maker", { length: 256 }),
     category: varchar("category", { length: 256 }),

@@ -3,7 +3,7 @@ import type { ClothingItem } from "~/types/global";
 
 const CategoryRowItem = ({ item }: { item: ClothingItem }) => {
   return (
-    <div className="group relative aspect-square w-40 flex-shrink-0 snap-center sm:w-80">
+    <div className="group relative aspect-square h-full flex-shrink-0 snap-center">
       <img
         src={item.imgUrl}
         alt="mock"
