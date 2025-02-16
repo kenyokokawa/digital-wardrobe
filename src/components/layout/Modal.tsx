@@ -3,6 +3,7 @@
 import { type ElementRef, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
+import XIcon from "../icons/XIcon";
 
 export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -30,27 +31,20 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/70">
       <dialog
         ref={dialogRef}
-        className="relative flex h-5/6 max-h-[800px] w-5/6 max-w-5xl flex-col items-center justify-start border-none bg-white p-4 sm:p-8"
+        className="relative flex max-h-[800px] w-5/6 max-w-5xl flex-col items-center justify-start border-none bg-white px-4 py-2 sm:p-8"
         onClose={onDismiss}
       >
-        <div className="flex w-full flex-row justify-end">
+        <div className="mb-2 flex w-full flex-row justify-end">
           <button
             onClick={onDismiss}
-            className="flex h-8 w-8 items-center justify-center border-2 border-red-500 hover:bg-gray-100"
+            className="flex p-1 items-center justify-center border-[3px] border-red-500 hover:bg-gray-100"
             aria-label="Close modal"
           >
-            <svg
-              className="h-8 w-8"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="red"
-            >
-              <path strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XIcon size={20} color="red" />
           </button>
         </div>
         {children}
+        <div className="h-8 w-full" />
       </dialog>
     </div>,
     document.getElementById("modal-root")!,

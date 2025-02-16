@@ -7,6 +7,7 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const LogInOut = () => {
   return (
@@ -31,14 +32,10 @@ const LogInOut = () => {
       </SignedIn>
       <SignedOut>
         <SignInButton>
-          <button className="bg-neutral-300 px-3 py-1 font-chakra">
-            Log In
-          </button>
+          <Button variant="secondary">Log In</Button>
         </SignInButton>
         <SignUpButton>
-          <button className="bg-black px-3 py-1 font-chakra font-medium text-white">
-            Sign Up
-          </button>
+          <Button>Sign Up</Button>
         </SignUpButton>
       </SignedOut>
     </>

@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import Nav from "~/components/layout/Nav";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Digital Wardrobe",
@@ -37,6 +38,13 @@ export default function RootLayout({
           <Nav />
           <main>{children}</main>
           {modal}
+          <Toaster
+            toastOptions={{
+              classNames: {
+                toast: "rounded-none border-2 border-zinc-400",
+              },
+            }}
+          />
           <div id="modal-root" />
         </body>
       </html>

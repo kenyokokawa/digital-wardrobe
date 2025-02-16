@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ClothingCategory, type ClothingItem } from "~/types/global";
 import { useRouter } from "next/navigation";
 import { updateUserClothingItemById } from "~/server/serverActions";
+import { Button } from "../ui/button";
 
 const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
   const router = useRouter();
@@ -36,15 +37,15 @@ const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-center gap-4 sm:flex-row sm:gap-12">
-      <div className="w max-h-md relative h-full w-full max-w-md">
+    <div className="relative flex w-full flex-col justify-center gap-4 sm:flex-row sm:gap-12">
+      <div className="relative aspect-square w-full max-w-lg shrink-0">
         <img
           src={clothingItem.imgUrl}
           alt={clothingItem.name || "Clothing item"}
-          className="h-full w-full object-cover"
+          className="w-full object-cover"
         />
       </div>
-      <div className="flex w-full flex-col items-start gap-2 sm:w-[300px]">
+      <div className="flex w-full flex-col items-start gap-2">
         {isEditing ? (
           <>
             <select
@@ -93,28 +94,19 @@ const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
         <div className="flex gap-2">
           {isEditing ? (
             <>
-              <button
-                onClick={handleSubmit}
-                disabled={isLoading}
-                className="border-2 border-black bg-black px-3 py-1 font-chakra text-white hover:bg-white hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
-              >
+              <Button onClick={handleSubmit} disabled={isLoading}>
                 {isLoading ? "Saving..." : "Save"}
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => setIsEditing(false)}
                 disabled={isLoading}
-                className="border-2 border-black bg-white px-3 py-1 font-chakra hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                variant="secondary"
               >
                 Cancel
-              </button>
+              </Button>
             </>
           ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="border-2 border-black bg-white px-3 py-1 font-chakra hover:bg-black hover:text-white"
-            >
-              Edit
-            </button>
+            <Button onClick={() => setIsEditing(true)}>Edit</Button>
           )}
         </div>
       </div>
