@@ -1,4 +1,4 @@
-import { type ClothingItem } from "~/types/global";
+import { type ClothingItem } from "~/consts/types";
 
 import ItemDelete from "./ItemDelete";
 import ItemDeleteWrapper from "./ItemDeleteWrapper";

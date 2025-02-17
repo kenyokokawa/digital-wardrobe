@@ -2,6 +2,7 @@
 import { useState } from "react";
 import LogInOut from "../account/LogInOut";
 import ImageUpload from "../actions/ImageUpload";
+import { SignedIn } from "@clerk/nextjs";
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const SideNav = () => {
     <>
       <button
         onClick={toggleNav}
-        className="fixed right-7 top-[30px] z-[60] sm:hidden"
+        className="absolute right-[12px] top-[14px] z-[60] sm:hidden"
       >
         <div className="space-y-1">
           <span
@@ -50,7 +51,9 @@ const SideNav = () => {
           <div className="flex flex-col gap-4">
             <LogInOut />
           </div>
-          <ImageUpload />
+          <SignedIn>
+            <ImageUpload />
+          </SignedIn>
         </div>
       </nav>
     </>

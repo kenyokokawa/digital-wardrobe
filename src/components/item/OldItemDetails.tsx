@@ -5,7 +5,8 @@ import {
   deleteUserClothingItemById,
   updateUserClothingItemById,
 } from "~/server/serverActions";
-import { ClothingCategory, type ClothingItem } from "~/types/global";
+import { type ClothingItem } from "~/consts/types";
+import { CATEGORIES } from "~/consts/consts";
 import { Button } from "../ui/button";
 
 /**@deprecated  */
@@ -72,9 +73,9 @@ const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
                 className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
               >
                 <option value="">Select Category</option>
-                {Object.values(ClothingCategory).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                {CATEGORIES.map((category) => (
+                  <option key={category.name} value={category.name}>
+                    {category.label}
                   </option>
                 ))}
               </select>

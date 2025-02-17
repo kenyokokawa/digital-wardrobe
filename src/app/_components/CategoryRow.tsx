@@ -1,6 +1,6 @@
 import React from "react";
 import Tag from "~/components/shared/Tag";
-import type { ClothingItem } from "~/types/global";
+import type { ClothingItem } from "~/consts/types";
 import CategoryRowItem from "./CategoryRowItem";
 import Badge from "~/components/shared/Badge";
 

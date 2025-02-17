@@ -37,7 +37,7 @@ export default function RootLayout({
         <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start overflow-x-hidden pb-24">
           <Nav />
           <LayoutWrapper>
-            <main>{children}</main>
+            <main className="w-full">{children}</main>
             {modal}
           </LayoutWrapper>
          

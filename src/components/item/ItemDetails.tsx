@@ -1,8 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { type ClothingItem } from "~/consts/types";
 import { updateUserClothingItemById } from "~/server/serverActions";
-import { ClothingCategory, type ClothingItem } from "~/types/global";
+import { CATEGORIES } from "~/consts/consts";
 import { Button } from "../ui/button";
 
 const ItemDetails = ({
@@ -52,9 +53,9 @@ const ItemDetails = ({
             className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
           >
             <option value="">Select Category</option>
-            {Object.values(ClothingCategory).map((category) => (
-              <option key={category} value={category}>
-                {category}
+            {CATEGORIES.map((category) => (
+              <option key={category.name} value={category.name}>
+                {category.label}
               </option>
             ))}
           </select>

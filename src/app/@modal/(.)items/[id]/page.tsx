@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import ItemView from "~/components/item/ItemView";
 import { getClothingItemById } from "~/server/serverActions";
-import { type ClothingItem } from "~/types/global";
+import { type ClothingItem } from "~/consts/types";
 import { Modal } from "../../../../components/layout/Modal";
 
 const ItemPage = async ({ params }: { params: Promise<{ id: string }> }) => {

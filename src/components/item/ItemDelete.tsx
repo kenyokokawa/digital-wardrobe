@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { deleteUserClothingItemById } from "~/server/serverActions";
-import { type ClothingItem } from "~/types/global";
+import { type ClothingItem } from "~/consts/types";
 import { Button } from "../ui/button";
 const ItemDelete = async ({ clothingItem }: { clothingItem: ClothingItem }) => {
   return (

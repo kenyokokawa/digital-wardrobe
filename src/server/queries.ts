@@ -3,7 +3,7 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
-import { type ClothingItem } from "~/types/global";
+import { type ClothingItem } from "~/consts/types";
 import { clothingItems } from "./db/schema";
 import { utapi } from "~/app/api/uploadthing/api";
 import { isItemDemo } from "./utils";
