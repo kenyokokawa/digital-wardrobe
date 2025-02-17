@@ -3,22 +3,27 @@ import { type ClothingItem } from "~/types/global";
 import ItemDelete from "./ItemDelete";
 import ItemDeleteWrapper from "./ItemDeleteWrapper";
 import ItemDetails from "./ItemDetails";
+import { auth } from "@clerk/nextjs/server";
 
-const ItemView = ({ clothingItem }: { clothingItem: ClothingItem }) => {
+const ItemView = async ({ clothingItem }: { clothingItem: ClothingItem }) => {
+  const user = await auth();
+  const canEdit = user.userId === clothingItem.userId;
   return (
     <div className="relative flex w-full flex-col justify-center gap-4 sm:flex-row sm:gap-12">
-      <div className="relative aspect-square w-full max-w-lg shrink-0">
+      <div className="relative aspect-square w-full max-w-lg">
         <img
           src={clothingItem.imgUrl}
           alt={clothingItem.name || "Clothing item"}
           className="w-full object-cover"
         />
       </div>
-      <div className="flex w-full flex-col justify-between">
-        <ItemDetails clothingItem={clothingItem} />
-        <ItemDeleteWrapper>
-          <ItemDelete clothingItem={clothingItem} />
-        </ItemDeleteWrapper>
+      <div className="flex w-full flex-col justify-between gap-4">
+        <ItemDetails clothingItem={clothingItem} canEdit={canEdit} />
+        {canEdit && (
+          <ItemDeleteWrapper>
+            <ItemDelete clothingItem={clothingItem} />
+          </ItemDeleteWrapper>
+        )}
       </div>
     </div>
   );

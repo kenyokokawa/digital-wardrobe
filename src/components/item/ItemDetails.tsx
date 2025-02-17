@@ -5,7 +5,13 @@ import { updateUserClothingItemById } from "~/server/serverActions";
 import { ClothingCategory, type ClothingItem } from "~/types/global";
 import { Button } from "../ui/button";
 
-const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
+const ItemDetails = ({
+  clothingItem,
+  canEdit,
+}: {
+  clothingItem: ClothingItem;
+  canEdit: boolean;
+}) => {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -82,24 +88,26 @@ const ItemDetails = ({ clothingItem }: { clothingItem: ClothingItem }) => {
           </p>
         </>
       )}
-      <div className="flex gap-2">
-        {isEditing ? (
-          <>
-            <Button onClick={handleUpdate} disabled={isUpdating}>
-              {isUpdating ? "Saving..." : "Save"}
-            </Button>
-            <Button
-              onClick={() => setIsEditing(false)}
-              disabled={isUpdating}
-              variant="secondary"
-            >
-              Cancel
-            </Button>
-          </>
-        ) : (
-          <Button onClick={() => setIsEditing(true)}>Edit</Button>
-        )}
-      </div>
+      {canEdit && (
+        <div className="flex gap-2">
+          {isEditing ? (
+            <>
+              <Button onClick={handleUpdate} disabled={isUpdating}>
+                {isUpdating ? "Saving..." : "Save"}
+              </Button>
+              <Button
+                onClick={() => setIsEditing(false)}
+                disabled={isUpdating}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+            </>
+          ) : (
+            <Button onClick={() => setIsEditing(true)}>Edit</Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ export enum ClothingCategory {
 }
 
 export type ClothingItem = {
+  userId: string;
   imgUrl: string;
   id: number;
   name: string | null;

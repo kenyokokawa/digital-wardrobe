@@ -6,6 +6,29 @@ import { db } from "~/server/db";
 import { type ClothingItem } from "~/types/global";
 import { clothingItems } from "./db/schema";
 import { utapi } from "~/app/api/uploadthing/api";
+import { isItemDemo } from "./utils";
+
+export const getDemoClothingItems = async (demoId: number) => {
+  const userId = `demo_${demoId}`;
+  const items = await db.query.clothingItems.findMany({
+    orderBy: (clothingItems, { asc }) => [asc(clothingItems.createdAt)],
+    where: (clothingItems, { eq }) => eq(clothingItems.userId, userId),
+  });
+  return items;
+};
+
+export const getDemoClothingItemById = async (id: number) => {
+  const item = await db.query.clothingItems.findFirst({
+    where: (clothingItems, { eq }) => eq(clothingItems.id, id),
+  });
+  if (!item) {
+    throw new Error("Not found");
+  }
+  if (!isItemDemo(item)) {
+    throw new Error("Unauthorized");
+  }
+  return item;
+};
 
 export const getUserClothingItems = async () => {
   const user = await auth();

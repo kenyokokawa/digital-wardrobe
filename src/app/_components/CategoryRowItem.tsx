@@ -1,16 +1,34 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
+import { isItemDemo } from "~/server/utils";
 import type { ClothingItem } from "~/types/global";
 
 const CategoryRowItem = ({ item }: { item: ClothingItem }) => {
+  const fillContainer = false;
+  const isDemo = isItemDemo(item);
+
   return (
-    <div className="group relative aspect-square h-full flex-shrink-0 snap-center bg-zinc-100">
+    <div
+      className={`group relative aspect-square h-full flex-shrink-0 snap-center ${
+        fillContainer ? "bg-zinc-100" : ""
+      }`}
+    >
       <Link href={`/items/${item.id}`}>
-        <img
-          src={item.imgUrl}
-          alt="mock"
-          className="h-full w-full object-cover"
-        />
+        {isDemo ? (
+          <Image
+            src={item.imgUrl}
+            alt={item.name || "Clothing item"}
+            fill
+            style={{ objectFit: fillContainer ? "cover" : "contain" }}
+          />
+        ) : (
+          <img
+            src={item.imgUrl}
+            alt={item.name || "Clothing item"}
+            className={`h-full w-full ${fillContainer ? "object-cover" : "object-contain"}`}
+          />
+        )}
         <div className="absolute inset-0 flex flex-col justify-end bg-black/30 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <h3 className="text-md font-semibold text-white sm:text-lg">
             {item.name || "Untitled"}

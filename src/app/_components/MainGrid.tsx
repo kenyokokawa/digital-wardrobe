@@ -1,4 +1,4 @@
-import { getUserClothingItems } from "~/server/queries";
+import { getDemoClothingItems, getUserClothingItems } from "~/server/queries";
 import CategoryRow from "./CategoryRow";
 import { auth } from "@clerk/nextjs/server";
 const MainGrid = async () => {
@@ -7,6 +7,8 @@ const MainGrid = async () => {
   let items: any[] = [];
   if (user.userId) {
     items = await getUserClothingItems();
+  } else {
+    items = await getDemoClothingItems(1);
   }
 
   return (
