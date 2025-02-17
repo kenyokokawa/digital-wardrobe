@@ -6,12 +6,12 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import CornerRibbon from "../shared/CornerRibbon";
 const Nav = async () => {
   return (
-    <nav className="mb-4 flex w-full max-w-6xl p-4 sm:mb-8">
-      <div className="relative overflow-hidden w-full">
+    <nav className="flex w-full max-w-6xl p-4 pb-2">
+      <div className="relative w-full overflow-hidden">
         <SignedOut>
           <CornerRibbon text="DEMO" position="left" />
         </SignedOut>
-        <div className="justify-space flex w-full flex-row justify-between border-2 border-black p-2 gap-2">
+        <div className="justify-space flex w-full flex-row justify-between gap-2 border-2 border-black p-2">
           <div className="shrink-1 flex grow basis-full items-center justify-start">
             <div className="hidden sm:block">
               <SignedIn>

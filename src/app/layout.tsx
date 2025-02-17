@@ -1,10 +1,10 @@
 import "~/styles/globals.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import LayoutWrapper from "~/components/layout/LayoutWrapper";
 import Nav from "~/components/layout/Nav";
-import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Digital Wardrobe",
@@ -34,17 +34,13 @@ export default function RootLayout({
             rel="stylesheet"
           />
         </head>
-        <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start pb-24 overflow-x-hidden">
+        <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start overflow-x-hidden pb-24">
           <Nav />
-          <main>{children}</main>
-          {modal}
-          <Toaster
-            toastOptions={{
-              classNames: {
-                toast: "rounded-none border-2 border-zinc-400",
-              },
-            }}
-          />
+          <LayoutWrapper>
+            <main>{children}</main>
+            {modal}
+          </LayoutWrapper>
+         
           <div id="modal-root" />
         </body>
       </html>

@@ -10,6 +10,10 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .application-width {
+    @apply mx-auto w-full max-w-6xl;
+  }
 }
 
 @layer base {
