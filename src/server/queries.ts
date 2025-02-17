@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
 import { type ClothingItem } from "~/types/global";
 import { clothingItems } from "./db/schema";
+import { utapi } from "~/app/api/uploadthing/api";
 
 export const getUserClothingItems = async () => {
   const user = await auth();
@@ -66,4 +67,27 @@ export const updateUserClothingItemById = async (
   }
 
   await db.update(clothingItems).set(data).where(eq(clothingItems.id, id));
+};
+
+export const deleteUserClothingItemById = async (id: number) => {
+  const user = await auth();
+
+  if (!user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const item = await db.query.clothingItems.findFirst({
+    where: (clothingItems, { eq }) => eq(clothingItems.id, id),
+  });
+
+  if (!item) {
+    throw new Error("Not found");
+  }
+
+  if (item.userId !== user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  await utapi.deleteFiles([item.imgKey]);
+  await db.delete(clothingItems).where(eq(clothingItems.id, id));
 };

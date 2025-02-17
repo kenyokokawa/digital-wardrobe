@@ -1,13 +1,21 @@
-import ItemDetails from "~/components/item/ItemDetails";
+import { notFound } from "next/navigation";
+import ItemView from "~/components/item/ItemView";
 import { getUserClothingItemById } from "~/server/queries";
+import { type ClothingItem } from "~/types/global";
 
-const ItemPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
-  const item = await getUserClothingItemById(parseInt(id));
+const ItemPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  let item: ClothingItem;
+  try {
+    item = await getUserClothingItemById(parseInt(id));
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    notFound();
+  }
 
   return (
     <main>
-      <ItemDetails clothingItem={item} />
+      <ItemView clothingItem={item} />
     </main>
   );
 };

@@ -27,6 +27,7 @@ export const clothingItems = createTable(
     brand: varchar("maker", { length: 256 }),
     category: varchar("category", { length: 256 }),
     imgUrl: varchar("img_url", { length: 1024 }).notNull(),
+    imgKey: varchar("img_key", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),

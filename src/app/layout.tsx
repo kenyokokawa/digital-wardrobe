@@ -34,7 +34,7 @@ export default function RootLayout({
             rel="stylesheet"
           />
         </head>
-        <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start pb-24">
+        <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start pb-24 overflow-x-hidden">
           <Nav />
           <main>{children}</main>
           {modal}

@@ -1,7 +1,7 @@
 "use client";
 
-import { type ElementRef, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { type ElementRef, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import XIcon from "../icons/XIcon";
 
@@ -28,7 +28,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   }
 
   return createPortal(
-    <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/70">
+    <div className="absolute inset-0 z-[40] flex items-center justify-center bg-black/70">
       <dialog
         ref={dialogRef}
         className="relative flex max-h-[800px] w-5/6 max-w-5xl flex-col items-center justify-start border-none bg-white px-4 py-2 sm:p-8"
@@ -37,7 +37,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
         <div className="mb-2 flex w-full flex-row justify-end">
           <button
             onClick={onDismiss}
-            className="flex p-1 items-center justify-center border-[3px] border-red-500 hover:bg-gray-100"
+            className="pointer flex items-center justify-center border-[3px] border-red-500 p-1 hover:bg-gray-100"
             aria-label="Close modal"
           >
             <XIcon size={20} color="red" />
