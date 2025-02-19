@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { type ClothingItem } from "~/consts/types";
 import { updateUserClothingItemById } from "~/server/serverActions";
-import { CATEGORIES } from "~/consts/consts";
+import { CATEGORY_ITEMS } from "~/consts/consts";
 import { Button } from "../ui/button";
 
 const ItemDetails = ({
@@ -53,9 +53,9 @@ const ItemDetails = ({
             className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
           >
             <option value="">Select Category</option>
-            {CATEGORIES.map((category) => (
-              <option key={category.name} value={category.name}>
-                {category.label}
+            {CATEGORY_ITEMS.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.id}
               </option>
             ))}
           </select>

@@ -1,12 +1,12 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
-import { ClothingCategory } from "~/consts/consts";
+import { DEFAULT_CATEGORY_GROUPS, type CategorySection } from "~/consts/consts";
 
 interface MainGridContextType {
   isImageFill: boolean;
   toggleImageFill: () => void;
-  categories: ClothingCategory[];
-  setCategories: React.Dispatch<React.SetStateAction<ClothingCategory[]>>;
+  categorySections: CategorySection[];
+  setCategorySections: React.Dispatch<React.SetStateAction<CategorySection[]>>;
 }
 
 const MainGridContext = createContext<MainGridContextType | undefined>(
@@ -15,11 +15,9 @@ const MainGridContext = createContext<MainGridContextType | undefined>(
 
 export function MainGridProvider({ children }: { children: React.ReactNode }) {
   const [isImageFill, setIsImageFill] = useState(false);
-  const [categories, setCategories] = useState<ClothingCategory[]>([
-    ClothingCategory.TOPS,
-    ClothingCategory.BOTTOMS,
-    ClothingCategory.SHOES,
-  ]);
+  const [categorySections, setCategorySections] = useState<CategorySection[]>(
+    DEFAULT_CATEGORY_GROUPS,
+  );
 
   const toggleImageFill = () => {
     setIsImageFill((prev) => !prev);
@@ -27,7 +25,12 @@ export function MainGridProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <MainGridContext.Provider
-      value={{ isImageFill, toggleImageFill, categories, setCategories }}
+      value={{
+        isImageFill,
+        toggleImageFill,
+        categorySections,
+        setCategorySections,
+      }}
     >
       {children}
     </MainGridContext.Provider>
