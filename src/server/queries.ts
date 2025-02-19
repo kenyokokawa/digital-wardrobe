@@ -8,8 +8,8 @@ import { clothingItems } from "./db/schema";
 import { utapi } from "~/app/api/uploadthing/api";
 import { isItemDemo } from "./utils";
 
-export const getDemoClothingItems = async (demoId: number) => {
-  const userId = `demo_${demoId}`;
+export const getDemoClothingItems = async (demoId?: number) => {
+  const userId = demoId ? `demo_${demoId}` : process.env.NEXT_PUBLIC_DEFAULT_DEMO_USER_ID!;
   const items = await db.query.clothingItems.findMany({
     orderBy: (clothingItems, { asc }) => [asc(clothingItems.createdAt)],
     where: (clothingItems, { eq }) => eq(clothingItems.userId, userId),

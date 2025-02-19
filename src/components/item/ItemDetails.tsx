@@ -1,10 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { CATEGORY_ITEMS } from "~/consts/consts";
 import { type ClothingItem } from "~/consts/types";
 import { updateUserClothingItemById } from "~/server/serverActions";
-import { CATEGORY_ITEMS } from "~/consts/consts";
 import { Button } from "../ui/button";
+import Combobox from "../ui/combobox";
+import { Input } from "../ui/input";
 
 const ItemDetails = ({
   clothingItem,
@@ -46,7 +48,7 @@ const ItemDetails = ({
     <div className="flex flex-col items-start gap-2">
       {isEditing ? (
         <>
-          <select
+          {/* <select
             name="category"
             value={formData.category}
             onChange={(e) => handleChange(e)}
@@ -58,22 +60,27 @@ const ItemDetails = ({
                 {category.id}
               </option>
             ))}
-          </select>
-          <input
+          </select> */}
+          <Combobox
+            value={formData.category}
+            setValue={(value) => setFormData({ ...formData, category: value })}
+            options={CATEGORY_ITEMS.map((category) => category.id)}
+          />
+          <Input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Name"
-            className="w-full border-2 border-black bg-white px-2 py-1 text-2xl font-bold"
+            size="lg"
           />
-          <input
+          <Input
             type="text"
             name="brand"
             value={formData.brand}
             onChange={handleChange}
             placeholder="Brand"
-            className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
+            size="sm"
           />
         </>
       ) : (

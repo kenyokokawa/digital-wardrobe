@@ -2,7 +2,9 @@ import {
   closestCorners,
   DndContext,
   KeyboardSensor,
+  MouseSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
@@ -21,15 +23,24 @@ import DownTriangleIcon from "../icons/DownTriangleIcon";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import CategorySectionContainer from "./CategorySectionContainer";
-import UncategorizedSectionContainer from "./UncategorizedSectionContainer";
+import UncategorizedSectionContainer from "./SectionlessCategoriesContainer";
 
 const CategoryEditor = () => {
   const { categorySections, setCategorySections } = useMainGrid();
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
 
   const sensors = useSensors(
-    useSensor(PointerSensor),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 10,
+      },
+    }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
@@ -104,6 +115,7 @@ const CategoryEditor = () => {
         id,
         label: "New Section",
         items: [],
+        isVisible: true,
       },
     ]);
   };
@@ -117,13 +129,10 @@ const CategoryEditor = () => {
             <DownTriangleIcon size={14} />
           </span>
         </PopoverTrigger>
-        <PopoverContent className="max-h-[calc(100vh-160px)] w-[min(100vw,600px)] overflow-y-scroll p-4">
+        <PopoverContent className="max-h-[calc(100vh-128px)] w-[min(100vw,600px)] overflow-y-scroll p-4">
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Section Editor</h3>
-              <Button onClick={() => setIsEditing(!isEditing)}>
-                {isEditing ? "Done" : "Edit Sections"}
-              </Button>
+              <h3 className="text-lg font-semibold font-chakra">Section Editor</h3>
             </div>
 
             <DndContext
@@ -132,7 +141,7 @@ const CategoryEditor = () => {
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
             >
-              <div className="mt-4 flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <SortableContext
                   items={categorySections.map((g) => `section-${g.id}`)}
                   strategy={verticalListSortingStrategy}
@@ -144,19 +153,6 @@ const CategoryEditor = () => {
                     <CategorySectionContainer
                       key={section.id}
                       section={section}
-                      isEditing={isEditing}
-                      onDelete={() => {
-                        setCategorySections((sections) =>
-                          sections.filter((s) => s.id !== section.id),
-                        );
-                      }}
-                      onRename={(newLabel) => {
-                        setCategorySections((sections) =>
-                          sections.map((s) =>
-                            s.id === section.id ? { ...s, label: newLabel } : s,
-                          ),
-                        );
-                      }}
                     />
                   ))}
                 </SortableContext>

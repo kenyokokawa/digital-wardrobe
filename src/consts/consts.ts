@@ -6,28 +6,32 @@ export type CategorySection = {
   id: string;
   label: string;
   items: CategoryItem[];
+  isVisible: boolean;
 };
 
 export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
-  // {
-  //   id: "headwear",
-  //   label: "Headwear",
-  //   items: ["hat", "scarf", "glasses", "sunglasses"].map((id) => ({
-  //     id,
-  //   })),
-  // },
+  {
+    id: "headwear",
+    label: "Headwear",
+    items: ["hat", "scarf", "glasses", "sunglasses"].map((id) => ({
+      id,
+    })),
+    isVisible: false,
+  },
   {
     id: "outerwear",
     label: "Outerwear",
     items: ["outerwear", "coat", "jacket"].map((id) => ({
       id,
     })),
+    isVisible: true,
   },
   {
     id: "tops",
     label: "Tops",
     items: [
       "top",
+      "shirt",
       "t-shirt",
       "long sleeve t-shirt",
       "sweater",
@@ -35,6 +39,7 @@ export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
     ].map((id) => ({
       id,
     })),
+    isVisible: true,
   },
   {
     id: "accessories",
@@ -42,6 +47,7 @@ export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
     items: ["belt", "jewelry", "watch", "bag"].map((id) => ({
       id,
     })),
+    isVisible: false,
   },
   {
     id: "bottoms",
@@ -49,6 +55,7 @@ export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
     items: ["bottom", "pants", "shorts", "skirt"].map((id) => ({
       id,
     })),
+    isVisible: true,
   },
   {
     id: "shoes",
@@ -56,6 +63,7 @@ export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
     items: ["shoes", "sneakers", "boots", "sandals"].map((id) => ({
       id,
     })),
+    isVisible: true,
   },
 ];
 

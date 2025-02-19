@@ -5,8 +5,12 @@ import { DEFAULT_CATEGORY_GROUPS, type CategorySection } from "~/consts/consts";
 interface MainGridContextType {
   isImageFill: boolean;
   toggleImageFill: () => void;
+  showSectionlessCategories: boolean;
+  setShowSectionlessCategories: (show: boolean) => void;
   categorySections: CategorySection[];
   setCategorySections: React.Dispatch<React.SetStateAction<CategorySection[]>>;
+  updateSection: (section: CategorySection) => void;
+  deleteSection: (sectionId: string) => void;
 }
 
 const MainGridContext = createContext<MainGridContextType | undefined>(
@@ -15,6 +19,8 @@ const MainGridContext = createContext<MainGridContextType | undefined>(
 
 export function MainGridProvider({ children }: { children: React.ReactNode }) {
   const [isImageFill, setIsImageFill] = useState(false);
+  const [showSectionlessCategories, setShowSectionlessCategories] =
+    useState(true);
   const [categorySections, setCategorySections] = useState<CategorySection[]>(
     DEFAULT_CATEGORY_GROUPS,
   );
@@ -23,13 +29,27 @@ export function MainGridProvider({ children }: { children: React.ReactNode }) {
     setIsImageFill((prev) => !prev);
   };
 
+  const updateSection = (section: CategorySection) => {
+    setCategorySections((prev) =>
+      prev.map((s) => (s.id === section.id ? section : s)),
+    );
+  };
+
+  const deleteSection = (sectionId: string) => {
+    setCategorySections((prev) => prev.filter((s) => s.id !== sectionId));
+  };
+
   return (
     <MainGridContext.Provider
       value={{
         isImageFill,
         toggleImageFill,
+        showSectionlessCategories,
+        setShowSectionlessCategories,
         categorySections,
         setCategorySections,
+        updateSection,
+        deleteSection,
       }}
     >
       {children}

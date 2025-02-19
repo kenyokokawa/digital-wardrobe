@@ -5,10 +5,19 @@ import ItemsRow from "./ItemsRow";
 import SectionRow from "./SectionRow";
 
 const MainGrid = ({ items }: { items: ClothingItem[] }) => {
-  const { categorySections } = useMainGrid();
+  const { categorySections, showSectionlessCategories } = useMainGrid();
 
   const uncategorizedItems = items.filter((item) => !item.category);
-  const allCategoryNames = categorySections.flatMap((section) =>
+
+  const sectionlessCategoryItems = items.filter(
+    (item) =>
+      item.category &&
+      !categorySections.some((section) =>
+        section.items.some((i) => i.id === item.category),
+      ),
+  );
+
+  const allSectionIds = categorySections.flatMap((section) =>
     section.items.map((item) => item.id),
   );
 
@@ -18,11 +27,20 @@ const MainGrid = ({ items }: { items: ClothingItem[] }) => {
         <ItemsRow label="Uncategorized" items={uncategorizedItems} />
       )}
 
-      {categorySections.map((section) => (
-        <SectionRow key={section.id} items={items} section={section} />
-      ))}
+      {showSectionlessCategories && sectionlessCategoryItems.length > 0 && (
+        <ItemsRow
+          label="Sectionless Categories"
+          items={sectionlessCategoryItems}
+        />
+      )}
 
-      {allCategoryNames.length === 0 && (
+      {categorySections
+        .filter((section) => section.isVisible)
+        .map((section) => (
+          <SectionRow key={section.id} items={items} section={section} />
+        ))}
+
+      {allSectionIds.length === 0 && (
         <div className="flex justify-center p-4">
           <p className="text-center font-chakra text-xl font-semibold">
             No categories selected

@@ -13,7 +13,7 @@ export default async function HomePage() {
   if (user.userId) {
     items = await getUserClothingItems();
   } else {
-    items = await getDemoClothingItems(1);
+    items = await getDemoClothingItems();
   }
   return (
     <MainGridProvider>

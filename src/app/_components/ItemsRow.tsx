@@ -11,7 +11,7 @@ const ItemsRow = ({
   label: string;
   items: ClothingItem[];
 }) => {
-  const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-28 sm:h-40";
+  const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-16 sm:h-24";
 
   let countText = "empty";
   if (items.length) {
