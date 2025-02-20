@@ -10,6 +10,8 @@
 - [x] Add image page and make images editable
 - [x] Add ability to delete images
 - [x] images based on user id / default images for logged out users
-- [ ] Add category editor
+- [x] Add category editor
 - [ ] Add search / filters / sort
 - [ ] Add banner
+- [ ] Make fits
+- [ ] Save fits, fits page

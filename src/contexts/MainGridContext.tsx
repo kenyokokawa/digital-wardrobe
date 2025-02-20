@@ -1,33 +1,66 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
-import { ClothingCategory } from "~/consts/consts";
+import { CategoryItem, type CategorySection } from "~/consts/consts";
+import { buildDefaultSectionsFromCategories } from "~/lib/utils";
 
 interface MainGridContextType {
   isImageFill: boolean;
   toggleImageFill: () => void;
-  categories: ClothingCategory[];
-  setCategories: React.Dispatch<React.SetStateAction<ClothingCategory[]>>;
+  userCategories: CategoryItem[];
+  showSectionlessCategories: boolean;
+  setShowSectionlessCategories: (show: boolean) => void;
+  categorySections: CategorySection[];
+  setCategorySections: React.Dispatch<React.SetStateAction<CategorySection[]>>;
+  updateSection: (section: CategorySection) => void;
+  deleteSection: (sectionId: string) => void;
 }
 
 const MainGridContext = createContext<MainGridContextType | undefined>(
   undefined,
 );
 
-export function MainGridProvider({ children }: { children: React.ReactNode }) {
+export function MainGridProvider({
+  userCategories = [],
+  children,
+}: {
+  userCategories: CategoryItem[];
+  children: React.ReactNode;
+}) {
   const [isImageFill, setIsImageFill] = useState(false);
-  const [categories, setCategories] = useState<ClothingCategory[]>([
-    ClothingCategory.TOPS,
-    ClothingCategory.BOTTOMS,
-    ClothingCategory.SHOES,
-  ]);
+  const [showSectionlessCategories, setShowSectionlessCategories] =
+    useState(true);
+
+  const [categorySections, setCategorySections] = useState<CategorySection[]>(
+    buildDefaultSectionsFromCategories(userCategories),
+  );
 
   const toggleImageFill = () => {
     setIsImageFill((prev) => !prev);
   };
 
+  const updateSection = (section: CategorySection) => {
+    setCategorySections((prev) =>
+      prev.map((s) => (s.id === section.id ? section : s)),
+    );
+  };
+
+  const deleteSection = (sectionId: string) => {
+    setCategorySections((prev) => prev.filter((s) => s.id !== sectionId));
+  };
+
   return (
     <MainGridContext.Provider
-      value={{ isImageFill, toggleImageFill, categories, setCategories }}
+      value={{
+        isImageFill,
+        toggleImageFill,
+        userCategories,
+        showSectionlessCategories,
+        setShowSectionlessCategories,
+        categorySections,
+        setCategorySections,
+        updateSection,
+        deleteSection,
+      }}
     >
       {children}
     </MainGridContext.Provider>

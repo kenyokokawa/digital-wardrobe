@@ -1,10 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { DEFAULT_CATEGORIES } from "~/consts/consts";
 import { type ClothingItem } from "~/consts/types";
 import { updateUserClothingItemById } from "~/server/serverActions";
-import { CATEGORIES } from "~/consts/consts";
 import { Button } from "../ui/button";
+import Combobox from "../ui/combobox";
+import { Input } from "../ui/input";
+import { useMainGrid } from "~/contexts/MainGridContext";
 
 const ItemDetails = ({
   clothingItem,
@@ -13,6 +16,7 @@ const ItemDetails = ({
   clothingItem: ClothingItem;
   canEdit: boolean;
 }) => {
+  const { userCategories } = useMainGrid();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -21,6 +25,12 @@ const ItemDetails = ({
     brand: clothingItem.brand || "",
     category: clothingItem.category || "",
   });
+
+  const categoryOptions = new Set([
+    ...DEFAULT_CATEGORIES.map((category) => category.id),
+    ...userCategories.map((category) => category.id),
+    formData.category,
+  ]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -46,34 +56,28 @@ const ItemDetails = ({
     <div className="flex flex-col items-start gap-2">
       {isEditing ? (
         <>
-          <select
-            name="category"
+          <Combobox
             value={formData.category}
-            onChange={(e) => handleChange(e)}
-            className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
-          >
-            <option value="">Select Category</option>
-            {CATEGORIES.map((category) => (
-              <option key={category.name} value={category.name}>
-                {category.label}
-              </option>
-            ))}
-          </select>
-          <input
+            setValue={(value) => setFormData({ ...formData, category: value })}
+            options={Array.from(categoryOptions)}
+            canAddOption={true}
+            optionsName="category"
+          />
+          <Input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Name"
-            className="w-full border-2 border-black bg-white px-2 py-1 text-2xl font-bold"
+            size="lg"
           />
-          <input
+          <Input
             type="text"
             name="brand"
             value={formData.brand}
             onChange={handleChange}
             placeholder="Brand"
-            className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
+            size="sm"
           />
         </>
       ) : (

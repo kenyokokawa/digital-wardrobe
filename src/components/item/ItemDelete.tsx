@@ -9,7 +9,6 @@ const ItemDelete = async ({ clothingItem }: { clothingItem: ClothingItem }) => {
       action={async () => {
         "use server";
         await deleteUserClothingItemById(clothingItem.id);
-        console.log("redirecting");
         revalidatePath("/");
         redirect("/");
       }}

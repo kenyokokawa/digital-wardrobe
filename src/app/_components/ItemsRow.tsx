@@ -4,14 +4,14 @@ import type { ClothingItem } from "~/consts/types";
 import CategoryRowItem from "./CategoryRowItem";
 import Badge from "~/components/shared/Badge";
 
-const CategoryRow = ({
-  category,
+const ItemsRow = ({
+  label,
   items,
 }: {
-  category: string;
+  label: string;
   items: ClothingItem[];
 }) => {
-  const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-28 sm:h-40";
+  const rowHeightClass = items.length ? "h-40 sm:h-80" : "h-16 sm:h-24";
 
   let countText = "empty";
   if (items.length) {
@@ -42,7 +42,7 @@ const CategoryRow = ({
       </div>
       <div className="pointer-events-none absolute left-0 top-0 flex h-full w-full">
         <div className="mx-auto flex h-fit w-full max-w-6xl justify-between px-4">
-          <Tag>{category.toUpperCase()}</Tag>
+          <Tag>{label}</Tag>
           <Badge>{countText}</Badge>
         </div>
       </div>
@@ -50,4 +50,4 @@ const CategoryRow = ({
   );
 };
 
-export default CategoryRow;
+export default ItemsRow;

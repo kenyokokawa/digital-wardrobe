@@ -6,7 +6,7 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import CornerRibbon from "../shared/CornerRibbon";
 const Nav = async () => {
   return (
-    <nav className="flex w-full max-w-6xl p-4 pb-2">
+    <header className="flex w-full max-w-6xl p-4 pb-2">
       <div className="relative w-full overflow-hidden">
         <SignedOut>
           <CornerRibbon text="DEMO" position="left" />
@@ -32,7 +32,7 @@ const Nav = async () => {
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 

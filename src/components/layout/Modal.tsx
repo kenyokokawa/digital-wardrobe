@@ -31,7 +31,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <div className="absolute inset-0 z-[40] flex items-center justify-center bg-black/70">
       <dialog
         ref={dialogRef}
-        className="relative flex max-h-[800px] w-5/6 max-w-5xl flex-col items-center justify-start border-none bg-white px-4 py-2 sm:p-8"
+        className="relative flex max-h-[calc(100vh-40px)] max-h-[800px] w-5/6 max-w-5xl flex-col items-center justify-start border-none bg-white px-4 py-2 sm:p-8"
         onClose={onDismiss}
       >
         <div className="mb-2 flex w-full flex-row justify-end">
