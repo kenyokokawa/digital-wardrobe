@@ -1,27 +1,23 @@
 import { useSortable } from "@dnd-kit/sortable";
-import { type CategoryItem } from "~/consts/consts";
 import { useMainGrid } from "~/contexts/MainGridContext";
-import CategoryItemDraggable from "./CategoryItemDraggable";
 import { Checkbox } from "../ui/checkbox";
+import CategoryItemDraggable from "./CategoryItemDraggable";
 
-interface Props {
-  categoryItems: CategoryItem[];
-}
-
-const SectionlessCategoriesContainer = ({ categoryItems }: Props) => {
+const SectionlessCategoriesContainer = () => {
   const {
     categorySections,
     showSectionlessCategories,
     setShowSectionlessCategories,
+    userCategories,
   } = useMainGrid();
   const { setNodeRef } = useSortable({
     id: `section-null`,
   });
 
-  const uncategorizedItems = categoryItems.filter(
-    (item) =>
+  const uncategorizedItems = userCategories.filter(
+    (userCategory) =>
       !categorySections.some((section) =>
-        section.items.some((i) => i.id === item.id),
+        section.items.some((i) => i.id === userCategory.id),
       ),
   );
 

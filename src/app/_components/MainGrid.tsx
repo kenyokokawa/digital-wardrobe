@@ -29,7 +29,7 @@ const MainGrid = ({ items }: { items: ClothingItem[] }) => {
 
       {showSectionlessCategories && sectionlessCategoryItems.length > 0 && (
         <ItemsRow
-          label="Sectionless Categories"
+          label="Sectionless Items"
           items={sectionlessCategoryItems}
         />
       )}

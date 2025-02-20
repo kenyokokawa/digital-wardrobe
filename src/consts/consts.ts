@@ -9,7 +9,7 @@ export type CategorySection = {
   isVisible: boolean;
 };
 
-export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
+export const DEFAULT_SECTIONS: CategorySection[] = [
   {
     id: "headwear",
     label: "Headwear",
@@ -67,6 +67,6 @@ export const DEFAULT_CATEGORY_GROUPS: CategorySection[] = [
   },
 ];
 
-export const CATEGORY_ITEMS: CategoryItem[] = Object.values(
-  DEFAULT_CATEGORY_GROUPS.flatMap((group) => group.items),
+export const DEFAULT_CATEGORIES: CategoryItem[] = Object.values(
+  DEFAULT_SECTIONS.flatMap((section) => section.items),
 );

@@ -3,12 +3,11 @@ import {
   DndContext,
   KeyboardSensor,
   MouseSensor,
-  PointerSensor,
   TouchSensor,
   useSensor,
   useSensors,
   type DragEndEvent,
-  type DragStartEvent,
+  type DragStartEvent
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -17,13 +16,13 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { useState } from "react";
-import { CATEGORY_ITEMS } from "~/consts/consts";
+import { DEFAULT_CATEGORIES } from "~/consts/consts";
 import { useMainGrid } from "~/contexts/MainGridContext";
 import DownTriangleIcon from "../icons/DownTriangleIcon";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import CategorySectionContainer from "./CategorySectionContainer";
-import UncategorizedSectionContainer from "./SectionlessCategoriesContainer";
+import SectionlessCategoriesContainer from "./SectionlessCategoriesContainer";
 
 const CategoryEditor = () => {
   const { categorySections, setCategorySections } = useMainGrid();
@@ -77,7 +76,7 @@ const CategoryEditor = () => {
     const targetSection = categorySections.find(
       (section) => `section-${section.id}` === overId,
     );
-    const item = CATEGORY_ITEMS.find((item) => item.id === activeId)!;
+    const item = DEFAULT_CATEGORIES.find((item) => item.id === activeId)!;
 
     if (
       targetSection &&
@@ -132,7 +131,9 @@ const CategoryEditor = () => {
         <PopoverContent className="max-h-[calc(100vh-128px)] w-[min(100vw,600px)] overflow-y-scroll p-4">
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold font-chakra">Section Editor</h3>
+              <h3 className="font-chakra text-lg font-semibold">
+                Section Editor
+              </h3>
             </div>
 
             <DndContext
@@ -146,9 +147,7 @@ const CategoryEditor = () => {
                   items={categorySections.map((g) => `section-${g.id}`)}
                   strategy={verticalListSortingStrategy}
                 >
-                  <UncategorizedSectionContainer
-                    categoryItems={CATEGORY_ITEMS}
-                  />
+                  <SectionlessCategoriesContainer />
                   {categorySections.map((section) => (
                     <CategorySectionContainer
                       key={section.id}

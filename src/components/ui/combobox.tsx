@@ -1,9 +1,8 @@
 "use client";
 
+import { Check, ChevronsUpDown, Plus as PlusIcon } from "lucide-react";
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
 import {
   Command,
@@ -18,18 +17,37 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
-
+import { cn } from "~/lib/utils";
 
 export default function Combobox({
   value,
   setValue,
   options,
+  canAddOption,
+  optionsName = "option",
 }: {
   value: string;
   setValue: (value: string) => void;
   options: string[];
+  canAddOption: boolean;
+  optionsName?: string;
 }) {
   const [open, setOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("");
+
+  const handleSelect = (currentValue: string) => {
+    setValue(currentValue === value ? "" : currentValue);
+    setOpen(false);
+    setInputValue("");
+  };
+
+  const handleAddOption = () => {
+    if (inputValue.trim()) {
+      setValue(inputValue.trim());
+      setOpen(false);
+      setInputValue("");
+    }
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -41,25 +59,42 @@ export default function Combobox({
           className="w-full justify-between"
         >
           {value
-            ? options.find((framework) => framework === value)
-            : "Select framework..."}
+            ? (options.find((option) => option === value) ?? value)
+            : "Select category..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput
+            placeholder="Search categories..."
+            value={inputValue}
+            onValueChange={setInputValue}
+          />
           <CommandList>
-            <CommandEmpty>No framework found.</CommandEmpty>
+            <CommandEmpty>
+              {canAddOption ? (
+                <div className="px-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start"
+                    onClick={handleAddOption}
+                  >
+                    <PlusIcon className="mr-2 h-4 w-4" />
+                    Add {optionsName}: {inputValue}
+                  </Button>
+                </div>
+              ) : (
+                "No results found"
+              )}
+            </CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
                 <CommandItem
                   key={option}
                   value={option}
-                  onSelect={(currentValue: string) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
+                  onSelect={handleSelect}
                 >
                   <Check
                     className={cn(

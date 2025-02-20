@@ -1,12 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { CATEGORY_ITEMS } from "~/consts/consts";
+import { DEFAULT_CATEGORIES } from "~/consts/consts";
 import { type ClothingItem } from "~/consts/types";
 import { updateUserClothingItemById } from "~/server/serverActions";
 import { Button } from "../ui/button";
 import Combobox from "../ui/combobox";
 import { Input } from "../ui/input";
+import { useMainGrid } from "~/contexts/MainGridContext";
 
 const ItemDetails = ({
   clothingItem,
@@ -15,6 +16,7 @@ const ItemDetails = ({
   clothingItem: ClothingItem;
   canEdit: boolean;
 }) => {
+  const { userCategories } = useMainGrid();
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -23,6 +25,12 @@ const ItemDetails = ({
     brand: clothingItem.brand || "",
     category: clothingItem.category || "",
   });
+
+  const categoryOptions = new Set([
+    ...DEFAULT_CATEGORIES.map((category) => category.id),
+    ...userCategories.map((category) => category.id),
+    formData.category,
+  ]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -48,23 +56,12 @@ const ItemDetails = ({
     <div className="flex flex-col items-start gap-2">
       {isEditing ? (
         <>
-          {/* <select
-            name="category"
-            value={formData.category}
-            onChange={(e) => handleChange(e)}
-            className="w-full border-2 border-black bg-white px-2 py-1 text-sm"
-          >
-            <option value="">Select Category</option>
-            {CATEGORY_ITEMS.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.id}
-              </option>
-            ))}
-          </select> */}
           <Combobox
             value={formData.category}
             setValue={(value) => setFormData({ ...formData, category: value })}
-            options={CATEGORY_ITEMS.map((category) => category.id)}
+            options={Array.from(categoryOptions)}
+            canAddOption={true}
+            optionsName="category"
           />
           <Input
             type="text"

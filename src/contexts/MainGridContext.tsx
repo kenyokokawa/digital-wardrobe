@@ -1,10 +1,12 @@
 "use client";
 import React, { createContext, useContext, useState } from "react";
-import { DEFAULT_CATEGORY_GROUPS, type CategorySection } from "~/consts/consts";
+import { CategoryItem, type CategorySection } from "~/consts/consts";
+import { buildDefaultSectionsFromCategories } from "~/lib/utils";
 
 interface MainGridContextType {
   isImageFill: boolean;
   toggleImageFill: () => void;
+  userCategories: CategoryItem[];
   showSectionlessCategories: boolean;
   setShowSectionlessCategories: (show: boolean) => void;
   categorySections: CategorySection[];
@@ -17,12 +19,19 @@ const MainGridContext = createContext<MainGridContextType | undefined>(
   undefined,
 );
 
-export function MainGridProvider({ children }: { children: React.ReactNode }) {
+export function MainGridProvider({
+  userCategories = [],
+  children,
+}: {
+  userCategories: CategoryItem[];
+  children: React.ReactNode;
+}) {
   const [isImageFill, setIsImageFill] = useState(false);
   const [showSectionlessCategories, setShowSectionlessCategories] =
     useState(true);
+
   const [categorySections, setCategorySections] = useState<CategorySection[]>(
-    DEFAULT_CATEGORY_GROUPS,
+    buildDefaultSectionsFromCategories(userCategories),
   );
 
   const toggleImageFill = () => {
@@ -44,6 +53,7 @@ export function MainGridProvider({ children }: { children: React.ReactNode }) {
       value={{
         isImageFill,
         toggleImageFill,
+        userCategories,
         showSectionlessCategories,
         setShowSectionlessCategories,
         categorySections,

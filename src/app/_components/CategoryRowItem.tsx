@@ -2,9 +2,9 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { isItemDemo } from "~/server/utils";
 import type { ClothingItem } from "~/consts/types";
 import { useMainGrid } from "~/contexts/MainGridContext";
+import { isItemDemo } from "~/lib/utils";
 
 const CategoryRowItem = ({ item }: { item: ClothingItem }) => {
   const { isImageFill } = useMainGrid();
