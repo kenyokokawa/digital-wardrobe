@@ -31,8 +31,8 @@ export const getUserClothingItemById = async (id: number) => {
   const userId = await getUserIdWithDemoFallback();
 
   const item = await db.query.clothingItems.findFirst({
-    where: (clothingItems, { eq }) =>
-      eq(clothingItems.id, id) && eq(clothingItems.userId, userId),
+    where: (clothingItems, { and, eq }) =>
+      and(eq(clothingItems.id, id), eq(clothingItems.userId, userId)),
   });
 
   if (!item) {

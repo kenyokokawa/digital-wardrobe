@@ -13,7 +13,7 @@ export const DEFAULT_SECTIONS: CategorySection[] = [
   {
     id: "headwear",
     label: "Headwear",
-    items: ["hat", "scarf", "glasses", "sunglasses"].map((id) => ({
+    items: ["hat", "scarf", "glasses", "sunglasses", "beanie"].map((id) => ({
       id,
     })),
     isVisible: false,
@@ -36,6 +36,10 @@ export const DEFAULT_SECTIONS: CategorySection[] = [
       "long sleeve t-shirt",
       "sweater",
       "sweatshirt",
+      "cardigan",
+      "jumper",
+      "hoodie",
+      "polo",
     ].map((id) => ({
       id,
     })),
@@ -44,7 +48,7 @@ export const DEFAULT_SECTIONS: CategorySection[] = [
   {
     id: "accessories",
     label: "Accessories",
-    items: ["belt", "jewelry", "watch", "bag"].map((id) => ({
+    items: ["belt", "jewelry", "watch", "bag", "tote bag"].map((id) => ({
       id,
     })),
     isVisible: false,
@@ -52,7 +56,7 @@ export const DEFAULT_SECTIONS: CategorySection[] = [
   {
     id: "bottoms",
     label: "Bottoms",
-    items: ["bottom", "pants", "shorts", "skirt"].map((id) => ({
+    items: ["bottom", "pants", "shorts", "skirt", "jeans"].map((id) => ({
       id,
     })),
     isVisible: true,

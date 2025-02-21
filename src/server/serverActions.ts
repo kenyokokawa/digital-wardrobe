@@ -11,7 +11,3 @@ export const deleteUserClothingItemById = async (
 ) => {
   await queries.deleteUserClothingItemById(...args);
 };
-
-export const getClothingItemById = async (id: number) => {
-  return queries.getUserClothingItemById(id);
-};

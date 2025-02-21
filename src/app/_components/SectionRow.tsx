@@ -10,7 +10,7 @@ const SectionRow = ({
   section: CategorySection;
 }) => {
   const itemsInSection = items.filter((item) =>
-    section.items.some((categoryItem) => item.category === categoryItem.id),
+    section.items?.some((categoryItem) => item.category === categoryItem.id),
   );
 
   return (

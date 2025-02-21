@@ -16,7 +16,7 @@ export const ourFileRouter = {
        * @see https://docs.uploadthing.com/file-routes#route-config
        */
       maxFileSize: "4MB",
-      maxFileCount: 10,
+      maxFileCount: 40,
     },
   })
     // Set permissions and file types for this FileRoute
@@ -35,11 +35,23 @@ export const ourFileRouter = {
       console.log("Upload complete for userId:", metadata.userId);
       console.log("file url", file.ufsUrl);
 
+      let savedName: string | undefined;
+      // contains screenshot or 3 consecutive numbers
+      const regex = /Screenshot|\d{3}/;
+      if (!regex.test(file.name)) {
+        savedName = file.name;
+        // Remove file extension if present
+        const extensionIndex = savedName?.lastIndexOf(".");
+        if (extensionIndex && extensionIndex > 0) {
+          savedName = savedName.substring(0, extensionIndex);
+        }
+      }
+
       await db.insert(clothingItems).values({
         imgKey: file.key,
         imgUrl: file.ufsUrl,
         userId: metadata.userId,
-        name: file.name,
+        name: savedName,
       });
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback

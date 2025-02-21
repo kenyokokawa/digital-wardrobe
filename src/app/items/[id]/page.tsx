@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ItemView from "~/components/item/ItemView";
-import { getClothingItemById } from "~/server/serverActions";
+import { getUserClothingItemById } from "~/server/queries";
 import { type ClothingItem } from "~/consts/types";
 
 const ItemPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -8,7 +8,7 @@ const ItemPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   let item: ClothingItem;
 
   try {
-    item = await getClothingItemById(parseInt(id));
+    item = await getUserClothingItemById(parseInt(id));
   } catch (error) {
     console.error("Error fetching item:", error);
     notFound();
