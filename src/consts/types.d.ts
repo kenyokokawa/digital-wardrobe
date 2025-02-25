@@ -1,5 +1,3 @@
-
-
 export type ClothingItem = {
   userId: string;
   imgUrl: string;
@@ -8,3 +6,6 @@ export type ClothingItem = {
   brand: string | null;
   category: string | null;
 };
+
+// UI
+export type GridImageSize = "S" | "M" | "L";

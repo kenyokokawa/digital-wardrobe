@@ -7,7 +7,7 @@ import {
   SignUpButton,
   UserButton,
 } from "@clerk/nextjs";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 
 const LogInOut = () => {
   return (
@@ -23,7 +23,7 @@ const LogInOut = () => {
           />
           <div className="block w-full sm:hidden">
             <SignOutButton>
-              <button className="w-full bg-neutral-300 px-3 py-1 font-chakra">
+              <button className={buttonVariants({ variant: "secondary" })}>
                 Log Out
               </button>
             </SignOutButton>
@@ -32,10 +32,10 @@ const LogInOut = () => {
       </SignedIn>
       <SignedOut>
         <SignInButton>
-          <Button variant="secondary">Log In</Button>
+          <div className={buttonVariants({ variant: "secondary" })}>Log In</div>
         </SignInButton>
         <SignUpButton>
-          <Button>Sign Up</Button>
+          <div className={buttonVariants({ variant: "default" })}>Sign Up</div>
         </SignUpButton>
       </SignedOut>
     </>

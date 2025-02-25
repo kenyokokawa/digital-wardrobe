@@ -15,7 +15,11 @@ const SectionRow = ({
 
   return (
     <div>
-      <ItemsRow label={section?.label || ""} items={itemsInSection} />
+      <ItemsRow 
+        label={section?.label || ""} 
+        items={itemsInSection} 
+        sectionId={section.id}
+      />
     </div>
   );
 };

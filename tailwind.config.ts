@@ -70,7 +70,10 @@ export default withUt({
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
-  		}
+  		},
+  		borderWidth: {
+  			'3': '3px',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

@@ -37,7 +37,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
         <div className="mb-2 flex w-full flex-row justify-end">
           <button
             onClick={onDismiss}
-            className="pointer flex items-center justify-center border-[3px] border-red-500 p-1 hover:bg-gray-100"
+            className="pointer flex items-center justify-center border-3 border-red-500 p-1 hover:bg-gray-100"
             aria-label="Close modal"
           >
             <XIcon size={20} color="red" />

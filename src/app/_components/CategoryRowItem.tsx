@@ -1,37 +1,35 @@
 "use client";
 import Link from "next/link";
-import React from "react";
-import Image from "next/image";
+import ItemImage from "~/components/item/ItemImage";
 import type { ClothingItem } from "~/consts/types";
 import { useMainGrid } from "~/contexts/MainGridContext";
 import { isItemDemo } from "~/lib/utils";
 
-const CategoryRowItem = ({ item }: { item: ClothingItem }) => {
+const CategoryRowItem = ({
+  item,
+  isCentered = false,
+}: {
+  item: ClothingItem;
+  isCentered?: boolean;
+}) => {
   const { isImageFill } = useMainGrid();
   const isDemo = isItemDemo(item);
 
   return (
     <div
-      className={`group relative aspect-square h-full flex-shrink-0 snap-center ${
+      data-item-id={item.id}
+      className={`group relative box-border aspect-square h-full flex-shrink-0 snap-center transition-all duration-300 ${
         isImageFill ? "bg-zinc-100" : ""
-      }`}
+      } ${isCentered ? "border-4 border-green-300" : "border-4 border-transparent"}`}
     >
       <Link href={`/items/${item.id}`}>
-        {isDemo ? (
-          <Image
-            src={item.imgUrl}
-            alt={item.name || "Clothing item"}
-            fill
-            style={{ objectFit: isImageFill ? "cover" : "contain" }}
-          />
-        ) : (
-          <img
-            src={item.imgUrl}
-            alt={item.name || "Clothing item"}
-            className={`h-full w-full ${isImageFill ? "object-cover" : "object-contain"}`}
-          />
-        )}
-        <div className="absolute inset-0 flex flex-col justify-end bg-black/30 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <ItemImage
+          src={item.imgUrl}
+          alt={item.name || "Clothing item"}
+          isDemo={isDemo}
+          fit={isImageFill ? "cover" : "contain"}
+        />
+        <div className="absolute inset-0 flex flex-col justify-end bg-black/30 p-4 opacity-0 transition-opacity duration-300 hover:opacity-100">
           <h3 className="text-md font-semibold text-white sm:text-lg">
             {item.name || "Untitled"}
           </h3>

@@ -11,7 +11,7 @@ const Nav = async () => {
         <SignedOut>
           <CornerRibbon text="DEMO" position="left" />
         </SignedOut>
-        <div className="justify-space flex w-full flex-row justify-between gap-2 border-2 border-black p-2">
+        <div className="justify-space flex w-full flex-row justify-between gap-2 border-3 border-black p-2">
           <div className="shrink-1 flex grow basis-full items-center justify-start">
             <div className="hidden sm:block">
               <SignedIn>
