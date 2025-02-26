@@ -17,6 +17,19 @@
   .container-page {
     @apply mx-auto w-full max-w-6xl p-4;
   }
+
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-20%);
+    }
+  }
 }
 
 @layer base {

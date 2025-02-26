@@ -11,7 +11,8 @@
 - [x] Add ability to delete images
 - [x] images based on user id / default images for logged out users
 - [x] Add category editor
+- [x] Add banner
+- [x] Make fits
+- [ ] Arrange fits
 - [ ] Add search / filters / sort
-- [ ] Add banner
-- [ ] Make fits
 - [ ] Save fits, fits page

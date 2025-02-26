@@ -7,6 +7,7 @@ export default async function HomePage() {
   const items = await getUserClothingItems();
   return (
     <>
+
       <Toolbar />
       <MainGrid items={items} />
     </>

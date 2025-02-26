@@ -10,11 +10,11 @@ const ItemView = async ({ clothingItem }: { clothingItem: ClothingItem }) => {
   const canEdit = user.userId === clothingItem.userId;
   return (
     <div className="relative flex w-full flex-col justify-center gap-4 sm:flex-row sm:gap-12">
-      <div className="relative aspect-square w-full max-w-lg">
+      <div className="relative aspect-square w-full sm:max-w-lg">
         <img
           src={clothingItem.imgUrl}
           alt={clothingItem.name || "Clothing item"}
-          className="w-full object-cover"
+          className="w-full max-w-full object-cover"
         />
       </div>
       <div className="flex w-full flex-col justify-between gap-4">

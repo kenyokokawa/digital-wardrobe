@@ -3,7 +3,8 @@ import { useState } from "react";
 import LogInOut from "../account/LogInOut";
 import ImageUpload from "../actions/ImageUpload";
 import { SignedIn } from "@clerk/nextjs";
-
+import Link from "next/link";
+import { FOOTER_LINKS } from "./Footer";
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -54,6 +55,17 @@ const SideNav = () => {
           <SignedIn>
             <ImageUpload />
           </SignedIn>
+        </div>
+        <div className="flex flex-col gap-4 p-6">
+          {FOOTER_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="font-chakra font-medium text-zinc-600 hover:text-black"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
       </nav>
     </>

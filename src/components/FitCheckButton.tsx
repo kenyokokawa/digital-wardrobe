@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 const FitCheckButton = () => {
   const { centeredItems, categorySections } = useMainGrid();
   const router = useRouter();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   closestCorners,
   DndContext,
@@ -15,7 +16,6 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useState } from "react";
 import { DEFAULT_CATEGORIES } from "~/consts/consts";
 import { useMainGrid } from "~/contexts/MainGridContext";
 import DownTriangleIcon from "../icons/DownTriangleIcon";
@@ -24,9 +24,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import CategorySectionContainer from "./CategorySectionContainer";
 import SectionlessCategoriesContainer from "./SectionlessCategoriesContainer";
 
-const CategoryEditor = () => {
+const SectionEditor = () => {
   const { categorySections, setCategorySections } = useMainGrid();
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -44,10 +44,6 @@ const CategoryEditor = () => {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
-
-  const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
-  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -102,8 +98,6 @@ const CategoryEditor = () => {
         return section;
       }),
     );
-
-    setActiveId(null);
   };
 
   const addNewSection = () => {
@@ -121,7 +115,7 @@ const CategoryEditor = () => {
 
   return (
     <div>
-      <Popover>
+      <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
         <PopoverTrigger>
           <span className="flex cursor-pointer flex-row items-center gap-2">
             <span className="text-md font-semibold">Edit Sections</span>
@@ -134,12 +128,18 @@ const CategoryEditor = () => {
               <h3 className="font-chakra text-lg font-semibold">
                 Section Editor
               </h3>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsPopoverOpen(false)}
+              >
+                Close
+              </Button>
             </div>
 
             <DndContext
               sensors={sensors}
               collisionDetection={closestCorners}
-              onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
             >
               <div className="flex flex-col gap-2">
@@ -167,4 +167,4 @@ const CategoryEditor = () => {
   );
 };
 
-export default CategoryEditor;
+export default SectionEditor;

@@ -7,6 +7,7 @@ import LayoutWrapper from "~/components/layout/LayoutWrapper";
 import Nav from "~/components/layout/Nav";
 import { MainGridProvider } from "~/contexts/MainGridContext";
 import { getUserCategories } from "~/server/queries";
+import Footer from "~/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Digital Wardrobe",
@@ -38,13 +39,14 @@ export default async function RootLayout({
               rel="stylesheet"
             />
           </head>
-          <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start overflow-x-hidden pb-24">
+          <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start overflow-x-hidden">
             <Nav />
             <LayoutWrapper>
               <main className="w-full">{children}</main>
               {modal}
             </LayoutWrapper>
 
+            <Footer />
             <div id="modal-root" />
           </body>
         </html>

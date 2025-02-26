@@ -48,7 +48,7 @@ const ItemsRow = ({
     : "h-16 sm:h-24";
 
   return (
-    <div className="group relative">
+    <div className="group relative overflow-x-hidden">
       <div
         id={`${sectionId}-row-scroll-container`}
         className="scrollbar-hide no-scrollbar w-screen snap-x snap-mandatory overflow-x-auto scroll-smooth"
@@ -58,7 +58,7 @@ const ItemsRow = ({
           className={`flex min-w-max bg-zinc-50 ${rowHeightClass}`}
         >
           <div className={gutterClasses[gridImageSize]} aria-hidden="true" />
-          <div className="flex flex-row gap-2 sm:gap-4">
+          <div className="flex w-fit flex-row gap-2 sm:gap-4">
             {items.map((item) => (
               <CategoryRowItem
                 key={item.id}

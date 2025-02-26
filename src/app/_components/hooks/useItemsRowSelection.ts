@@ -20,7 +20,7 @@ export const useItemsRowSelection = (
       const items =
         rowRef.current.querySelectorAll<HTMLElement>("[data-item-id]");
 
-      items.forEach((item) => {
+      for (const item of items) {
         const rect = item.getBoundingClientRect();
         const itemCenter = rect.left + rect.width / 2;
         const distance = Math.abs(containerCenter - itemCenter);
@@ -29,7 +29,7 @@ export const useItemsRowSelection = (
           minDistance = distance;
           closestItem = item;
         }
-      });
+      }
 
       if (closestItem) {
         const itemId = Number(closestItem.getAttribute("data-item-id"));
