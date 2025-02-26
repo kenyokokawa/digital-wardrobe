@@ -3,61 +3,39 @@ import SIcon from "../icons/SIcon";
 import MIcon from "../icons/MIcon";
 import LIcon from "../icons/LIcon";
 import { useMainGrid } from "~/contexts/MainGridContext";
-import { TooltipContent } from "../ui/tooltip";
-import { TooltipTrigger } from "../ui/tooltip";
-import { Tooltip } from "../ui/tooltip";
+import { ButtonGroup, type ButtonGroupOption } from "../shared/ButtonGroup";
 import type { GridImageSize } from "~/consts/types";
 
-const IMAGE_SIZES: { id: GridImageSize; label: string }[] = [
+const IMAGE_SIZE_OPTIONS: ButtonGroupOption<GridImageSize>[] = [
   {
-    id: "S",
+    value: "S",
+    icon: SIcon,
     label: "small",
+    tooltip: "grid size: small",
   },
   {
-    id: "M",
+    value: "M",
+    icon: MIcon,
     label: "medium",
+    tooltip: "grid size: medium",
   },
   {
-    id: "L",
+    value: "L",
+    icon: LIcon,
     label: "large",
+    tooltip: "grid size: large",
   },
 ];
-
-const IMAGE_SIZE_ICONS: Record<GridImageSize, React.ElementType> = {
-  S: SIcon,
-  M: MIcon,
-  L: LIcon,
-};
 
 const ImageSizePicker = () => {
   const { gridImageSize, setGridImageSize } = useMainGrid();
 
   return (
-    <div className="flex flex-row items-center gap-1">
-      {IMAGE_SIZES.map((size) => {
-        const isSelected = gridImageSize === size.id;
-        return (
-          <Tooltip key={size.id}>
-            <TooltipTrigger>
-              <div
-                onClick={() => setGridImageSize(size.id)}
-                className={`flex h-[20px] w-[20px] cursor-pointer items-center justify-center ${
-                  isSelected ? "bg-black" : "bg-white"
-                }`}
-              >
-                {React.createElement(IMAGE_SIZE_ICONS[size.id], {
-                  color: isSelected ? "white" : "black",
-                  size: 12,
-                })}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>grid size: {size.label}</p>
-            </TooltipContent>
-          </Tooltip>
-        );
-      })}
-    </div>
+    <ButtonGroup
+      options={IMAGE_SIZE_OPTIONS}
+      value={gridImageSize}
+      onChange={setGridImageSize}
+    />
   );
 };
 

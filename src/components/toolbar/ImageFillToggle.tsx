@@ -15,7 +15,7 @@ const ImageFillToggle = () => {
     <Tooltip>
       <TooltipTrigger>
         <span onClick={toggleImageFill}>
-          {isImageFill ? <ExpandIcon size={18} /> : <ContractIcon size={18} />}
+          {isImageFill ? <ExpandIcon size={22} /> : <ContractIcon size={22} />}
         </span>
       </TooltipTrigger>
       <TooltipContent>
