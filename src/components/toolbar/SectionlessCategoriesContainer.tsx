@@ -2,6 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { useMainGrid } from "~/contexts/MainGridContext";
 import { Checkbox } from "../ui/checkbox";
 import CategoryItemDraggable from "./CategoryItemDraggable";
+import { Label } from "../ui/label";
 
 const SectionlessCategoriesContainer = () => {
   const {
@@ -39,9 +40,9 @@ const SectionlessCategoriesContainer = () => {
               setShowSectionlessCategories(Boolean(checked));
             }}
           />
-          <label htmlFor={"uncategorized-visible-toggle"} className="text-sm">
+          <Label htmlFor={"uncategorized-visible-toggle"} className="text-sm">
             visible
-          </label>
+          </Label>
         </div>
       </div>
       {uncategorizedItems.map((item) => (

@@ -13,6 +13,6 @@
 - [x] Add category editor
 - [x] Add banner
 - [x] Make fits
-- [ ] Arrange fits
+- [x] Arrange fits
 - [ ] Add search / filters / sort
 - [ ] Save fits, fits page

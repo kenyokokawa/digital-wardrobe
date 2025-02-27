@@ -9,6 +9,7 @@ import DragIcon from "../icons/DragIcon";
 
 import { useMainGrid } from "~/contexts/MainGridContext";
 import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 interface Props {
   section: CategorySection;
@@ -88,9 +89,9 @@ const CategorySectionContainer = ({ section }: Props) => {
                 updateSection({ ...section, isVisible: Boolean(checked) });
               }}
             />
-            <label htmlFor={section.id + "-visible-toggle"} className="text-sm">
+            <Label htmlFor={section.id + "-visible-toggle"} className="text-sm">
               visible
-            </label>
+            </Label>
           </div>
           <Button
             onClick={() => deleteSection(section.id)}

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { type ClothingItem } from "~/consts/types";
 import FitCheckControls, { type FitCheckSettings } from "./FitCheckControls";
-import ItemImage from "~/components/item/ItemImage";
-import { isItemDemo } from "~/lib/utils";
+import FitCheckGrid from "./FitCheckGrid";
+import FitCheckFreeform from "./FitCheckFreeform";
 
 const DEFAULT_SETTINGS: FitCheckSettings = {
   columns: 2,
@@ -12,67 +12,42 @@ const DEFAULT_SETTINGS: FitCheckSettings = {
   showName: true,
   showBrand: true,
   layout: "vertical",
+  isDraggable: false,
 };
 
 const FitCheckPage = ({ items }: { items: ClothingItem[] }) => {
   const [settings, setSettings] = useState<FitCheckSettings>(DEFAULT_SETTINGS);
 
-  const gridColsClass = {
-    1: "grid-cols-1",
-    2: "grid-cols-2",
-    3: "grid-cols-3",
-  }[settings.columns];
-
-  const gridWidthClass = settings.columns === 1 ? "max-w-3xl" : "";
-
   const textSizeClass = {
     sm: "text-sm",
-    base: "text-base",
-    lg: "text-lg",
+    base: "text-lg",
+    lg: "text-2xl",
   }[settings.fontSize];
 
   return (
-    <div className="container-page">
-      <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-        <h1 className="shrink-0 font-chakra text-3xl font-bold">FIT CHECK</h1>
-        <FitCheckControls settings={settings} setSettings={setSettings} />
+    <div className="mb-8">
+      <div className="application-width px-4 pt-2">
+        <div className="mb-8 flex flex-col items-center justify-between gap-2 sm:gap-4 md:flex-row">
+          <h1 className="shrink-0 font-chakra text-3xl font-bold">FIT CHECK</h1>
+          <FitCheckControls settings={settings} setSettings={setSettings} />
+        </div>
       </div>
 
-      <div className={`mx-auto grid my-16 ${gridColsClass} ${gridWidthClass} gap-6`}>
-        {items.map((item) => (
-          <div
-            key={item.id}
-            className={`flex ${
-              settings.layout === "horizontal" ? "flex-row" : "flex-col"
-            } items-center gap-4`}
-          >
-            <div className={`relative aspect-square w-full`}>
-              <ItemImage
-                src={item.imgUrl}
-                alt={item.name || "Clothing item"}
-                isDemo={isItemDemo(item)}
-                fit={"contain"}
-              />
-            </div>
-            {(settings.showName || settings.showBrand) && (
-              <div
-                className={`text-center ${textSizeClass} ${
-                  settings.layout === "horizontal" ? "w-1/2" : "w-full"
-                }`}
-              >
-                {settings.showName && (
-                  <h2 className="font-semibold">{item.name || "Untitled"}</h2>
-                )}
-                {settings.showBrand && (
-                  <p className="text-gray-600">
-                    {item.brand || "brand unknown"}
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      {settings.isDraggable ? (
+        <FitCheckFreeform
+          items={items}
+          settings={settings}
+          textSizeClass={textSizeClass}
+        />
+      ) : (
+        <div className="application-width px-4">
+          <FitCheckGrid
+            items={items}
+            settings={settings}
+            textSizeClass={textSizeClass}
+          />
+        </div>
+      )}
     </div>
   );
 };

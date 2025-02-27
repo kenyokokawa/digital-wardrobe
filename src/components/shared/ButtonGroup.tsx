@@ -15,6 +15,7 @@ type ButtonGroupProps<T> = {
   onChange: (value: T) => void;
   label?: string;
   iconSize?: number;
+  disabled?: boolean;
 };
 
 export function ButtonGroup<T extends React.Key>({
@@ -22,6 +23,7 @@ export function ButtonGroup<T extends React.Key>({
   value,
   onChange,
   label,
+  disabled = false,
 }: ButtonGroupProps<T>) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -40,8 +42,11 @@ export function ButtonGroup<T extends React.Key>({
               variant={isSelected ? "default" : "outline"}
               onClick={() => onChange(option.value)}
               className="h-7 w-7 p-0"
+              disabled={disabled}
             >
-              <Icon color={isSelected ? "white" : "black"} />
+              <Icon
+                color={isSelected ? "white" : disabled ? "gray" : "black"}
+              />
             </Button>
           );
 
