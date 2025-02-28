@@ -11,3 +11,21 @@ export const deleteUserClothingItemById = async (
 ) => {
   await queries.deleteUserClothingItemById(...args);
 };
+
+export const saveFit = async (
+  ...args: Parameters<typeof queries.saveFit>
+) => {
+  return await queries.saveFit(...args);
+};
+
+export const deleteSavedFitById = async (
+  ...args: Parameters<typeof queries.deleteSavedFitById>
+) => {
+  await queries.deleteSavedFitById(...args);
+};
+
+export const checkIfFitExists = async (
+  ...args: Parameters<typeof queries.checkIfFitExists>
+) => {
+  return await queries.checkIfFitExists(...args);
+};

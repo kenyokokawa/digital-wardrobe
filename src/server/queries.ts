@@ -3,8 +3,8 @@ import "server-only";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import { db } from "~/server/db";
-import { type ClothingItem } from "~/consts/types";
-import { clothingItems } from "./db/schema";
+import { type ClothingItem, type SavedFit } from "~/consts/types";
+import { clothingItems, savedFits } from "./db/schema";
 import { utapi } from "~/app/api/uploadthing/api";
 import { CategoryItem } from "~/consts/consts";
 
@@ -111,4 +111,106 @@ export const deleteUserClothingItemById = async (id: number) => {
 
   await utapi.deleteFiles([item.imgKey]);
   await db.delete(clothingItems).where(eq(clothingItems.id, id));
+};
+
+// Saved Fits
+export const saveFit = async (name: string, itemIds: number[]) => {
+  const user = await auth();
+
+  if (!user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  // Sort the itemIds to ensure consistent comparison
+  const sortedItemIds = [...itemIds].sort((a, b) => a - b);
+
+  const result = await db
+    .insert(savedFits)
+    .values({
+      userId: user.userId,
+      name,
+      itemIds: sortedItemIds.join(","),
+    })
+    .returning();
+
+  return result[0];
+};
+
+export const checkIfFitExists = async (
+  itemIds: number[],
+): Promise<number | null> => {
+  const userId = await getUserIdWithDemoFallback();
+
+  // Sort the itemIds to ensure consistent comparison
+  const sortedItemIds = [...itemIds].sort((a, b) => a - b);
+  const itemIdsString = sortedItemIds.join(",");
+
+  const fits = await db.query.savedFits.findMany({
+    where: (savedFits, { eq }) => eq(savedFits.userId, userId),
+  });
+
+  // Find a fit with the exact same items
+  const existingFit = fits.find((fit) => {
+    const fitItemIds = fit.itemIds
+      .split(",")
+      .map(Number)
+      .sort((a, b) => a - b);
+    return fitItemIds.join(",") === itemIdsString;
+  });
+
+  return existingFit ? existingFit.id : null;
+};
+
+export const getUserSavedFits = async (): Promise<SavedFit[]> => {
+  const userId = await getUserIdWithDemoFallback();
+
+  const fits = await db.query.savedFits.findMany({
+    orderBy: (savedFits, { desc }) => [desc(savedFits.createdAt)],
+    where: (savedFits, { eq }) => eq(savedFits.userId, userId),
+  });
+
+  return fits.map((fit) => ({
+    ...fit,
+    itemIds: fit.itemIds.split(",").map(Number),
+  }));
+};
+
+export const getSavedFitById = async (id: number): Promise<SavedFit> => {
+  const userId = await getUserIdWithDemoFallback();
+
+  const fit = await db.query.savedFits.findFirst({
+    where: (savedFits, { and, eq }) =>
+      and(eq(savedFits.id, id), eq(savedFits.userId, userId)),
+  });
+
+  if (!fit) {
+    throw new Error("Not found");
+  }
+
+  return {
+    ...fit,
+    itemIds: fit.itemIds.split(",").map(Number),
+  };
+};
+
+export const deleteSavedFitById = async (id: number) => {
+  const user = await auth();
+
+  if (!user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  const fit = await db.query.savedFits.findFirst({
+    where: (savedFits, { eq }) => eq(savedFits.id, id),
+  });
+
+  if (!fit) {
+    throw new Error("Not found");
+  }
+
+  if (fit.userId !== user.userId) {
+    throw new Error("Unauthorized");
+  }
+
+  await db.delete(savedFits).where(eq(savedFits.id, id));
 };

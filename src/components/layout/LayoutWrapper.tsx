@@ -5,7 +5,7 @@ import { TooltipProvider } from "../ui/tooltip";
 const LayoutWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <TooltipProvider>
+      <TooltipProvider delayDuration={300}>
         {children}
         <Toaster
           toastOptions={{

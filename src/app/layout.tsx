@@ -40,13 +40,13 @@ export default async function RootLayout({
             />
           </head>
           <body className="flex min-h-screen min-w-[320px] flex-col items-center justify-start overflow-x-hidden">
-            <Nav />
             <LayoutWrapper>
+              <Nav />
               <main className="w-full">{children}</main>
               {modal}
-            </LayoutWrapper>
 
-            <Footer />
+              <Footer />
+            </LayoutWrapper>
             <div id="modal-root" />
           </body>
         </html>

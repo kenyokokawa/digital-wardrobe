@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { NavLink } from "./Nav";
 
-export const FOOTER_LINKS = [
+export const FOOTER_LINKS: NavLink[] = [
   {
     href: "/about",
     label: "About",

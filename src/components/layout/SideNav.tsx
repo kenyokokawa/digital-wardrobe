@@ -1,16 +1,24 @@
 "use client";
-import { useState } from "react";
-import LogInOut from "../account/LogInOut";
-import ImageUpload from "../actions/ImageUpload";
 import { SignedIn } from "@clerk/nextjs";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import LogInOut from "../account/LogInOut";
+import ImageUpload from "../actions/ImageUpload";
 import { FOOTER_LINKS } from "./Footer";
+import { NAV_LINKS } from "./Nav";
+import { usePathname } from "next/navigation";
+
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -57,12 +65,15 @@ const SideNav = () => {
           </SignedIn>
         </div>
         <div className="flex flex-col gap-4 p-6">
-          {FOOTER_LINKS.map((link) => (
+          {[...NAV_LINKS, ...FOOTER_LINKS].map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="font-chakra font-medium text-zinc-600 hover:text-black"
+              className="flex flex-row items-center gap-2 font-chakra font-medium text-zinc-600 hover:text-black"
             >
+              <div className="basis-8">
+                {link.icon && <link.icon size={24} />}
+              </div>
               {link.label}
             </Link>
           ))}

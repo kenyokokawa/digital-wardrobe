@@ -8,6 +8,7 @@ import {
   pgTableCreator,
   timestamp,
   varchar,
+  text,
 } from "drizzle-orm/pg-core";
 
 /**
@@ -37,5 +38,24 @@ export const clothingItems = createTable(
   },
   (example) => ({
     nameIndex: index("name_idx").on(example.name),
+  }),
+);
+
+export const savedFits = createTable(
+  "saved_fit",
+  {
+    id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
+    userId: varchar("user_id", { length: 256 }).notNull(),
+    name: varchar("name", { length: 256 }).notNull(),
+    itemIds: text("item_ids").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+      () => new Date(),
+    ),
+  },
+  (table) => ({
+    userIdIndex: index("user_id_idx").on(table.userId),
   }),
 );
