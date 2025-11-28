@@ -5,6 +5,8 @@ export type ClothingItem = {
   name: string | null;
   brand: string | null;
   category: string | null;
+  createdAt: Date;
+  updatedAt: Date | null;
 };
 
 export type SavedFit = {

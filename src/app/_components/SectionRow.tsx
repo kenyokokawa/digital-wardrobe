@@ -9,15 +9,17 @@ const SectionRow = ({
   items: ClothingItem[];
   section: CategorySection;
 }) => {
-  const itemsInSection = items.filter((item) =>
-    section.items?.some((categoryItem) => item.category === categoryItem.id),
-  );
+  const itemsInSection = items
+    .filter((item) =>
+      section.items?.some((categoryItem) => item.category === categoryItem.id),
+    )
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
   return (
     <div>
-      <ItemsRow 
-        label={section?.label || ""} 
-        items={itemsInSection} 
+      <ItemsRow
+        label={section?.label || ""}
+        items={itemsInSection}
         sectionId={section.id}
       />
     </div>
